@@ -109,9 +109,6 @@ class GameBoard  {
         lastMove = movement;
     }
 
-    /**
-     * Moves the Snake left.
-     */
     private void moveSnakeLeft () {
         if (!snake.moveLeft()) { // Check to see if the Snake has run into itself.
             exit();
