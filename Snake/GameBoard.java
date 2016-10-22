@@ -16,7 +16,7 @@ class GameBoard  {
     private int score = 0;
 
     /**
-     * Keep track of the last move so that the Snake cannot 180 degree turns,
+     * Keep track of the last move so that the Snake cannot do 180 degree turns,
      * only 90 degree turns.
      */
     private Direction movement = Direction.DOWN;
