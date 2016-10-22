@@ -15,4 +15,4 @@ Use the arrow keys to change the direction of the snake. The F1, F2, F3 & F4 but
 
 ![alt tag] (gifs/Snake_2.gif)
 
-When the player loses the program exits and final score is printed to the terminal.
+When the player loses the program exits and the final score is printed to the terminal.
