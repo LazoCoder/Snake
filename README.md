@@ -1,5 +1,5 @@
 # Snake
-The video game Snake.
+The classic Snake video game.
 
 # Instructions
 After downloading, navigate into the Snake folder and type the following commands to run the game:
