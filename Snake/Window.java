@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 /**
  * Runs a game of Snake.
  * Uses the arrow keys to move the Snake.
- * Click F1, F2, F3 or F4 to change the color.
+ * Click F1, F2, F3, F4 or F5 to change the color.
  */
 public class Window extends JFrame {
 
@@ -40,6 +40,7 @@ public class Window extends JFrame {
         setResizable(false);
         pack();
         setVisible(true);
+        setLocationRelativeTo(null);// Center window
     }
 
     private void startGame (Engine engine) {
@@ -89,9 +90,15 @@ public class Window extends JFrame {
                     gameBoard.update();
                     setTitle("Snake - Score: " + gameBoard.getScore());
                     elapsedTime--;
+                    
                 }
 
                 sleep();
+                
+                //7/28/2017
+                //If the rainbow theme is selected lets update the color
+                if (Properties.getTheme() == Properties.Theme.Rainbow) Properties.changeColor();
+                
                 repaint();
             }
         }
@@ -114,7 +121,7 @@ public class Window extends JFrame {
         @Override
         public void keyPressed(KeyEvent keyEvent) {
 
-            if (!engine.running) {
+            if (!engine.running && keyEvent.getKeyCode() != KeyEvent.VK_F1 && keyEvent.getKeyCode() != KeyEvent.VK_F2 && keyEvent.getKeyCode() != KeyEvent.VK_F3 && keyEvent.getKeyCode() != KeyEvent.VK_F4 && keyEvent.getKeyCode() != KeyEvent.VK_F5) {
                 startGame(engine);
                 engine.running = true;
             }
@@ -131,15 +138,23 @@ public class Window extends JFrame {
 
             if (keyEvent.getKeyCode() == KeyEvent.VK_F1) {
                 Properties.Dark();
+                repaint();
             }
-            if (keyEvent.getKeyCode() == KeyEvent.VK_F2) {
+            else if (keyEvent.getKeyCode() == KeyEvent.VK_F2) {
                 Properties.Sky();
+                repaint();
             }
-            if (keyEvent.getKeyCode() == KeyEvent.VK_F3) {
+            else if (keyEvent.getKeyCode() == KeyEvent.VK_F3) {
                 Properties.Mud();
+                repaint();
             }
-            if (keyEvent.getKeyCode() == KeyEvent.VK_F4) {
+            else if (keyEvent.getKeyCode() == KeyEvent.VK_F4) {
                 Properties.Sand();
+                repaint();
+            }
+            else if (keyEvent.getKeyCode() == KeyEvent.VK_F5) {
+                Properties.Rainbow();
+                repaint();
             }
         }
 
