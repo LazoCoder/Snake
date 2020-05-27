@@ -6,8 +6,7 @@
 class Square {
 
     private Entity entity;
-    private int x;
-    private int y;
+    private Coordinate coord;
 
     /**
      * Construct the Square with nothing on it.
@@ -24,17 +23,16 @@ class Square {
      * @param x         the x coordinate of the square
      * @param y         the y coordinate of the square
      */
-    Square (Entity entity, int x, int y) {
+    public Square (Entity entity, int x, int y) {
         this.entity = entity;
-        this.x = x;
-        this.y = y;
+        this.coord=new Coordinate(x,y);
     }
 
     /**
      * Change what is on the Square.
      * @param entity    the new entity
      */
-    void setEntity (Entity entity) {
+    public void setEntity (Entity entity) {
         this.entity = entity;
     }
 
@@ -42,18 +40,21 @@ class Square {
      * Get what is on the Square.
      * @return          the entity on the Square
      */
-    Entity getEntity () {
+    public Entity getEntity () {
         return entity;
     }
-
-    int getX () {
-        return x;
+    
+    public int getX () {
+        return coord.getX();
     }
 
-    int getY () {
-        return y;
+    public int getY () {
+        return coord.getY();
     }
-
+   
+    public Coordinate getCoord() {
+    	return coord;
+    }
     @Override
     public boolean equals (Object obj) {
 
@@ -62,11 +63,11 @@ class Square {
         }
 
         Square sq = (Square) obj;
-        return sq.x == x && sq.y == y;
+        return sq.getCoord().equals(getCoord());
     }
 
     @Override
     public String toString () {
-        return entity + " at (" + x + ", " + y + ")";
+        return getEntity() + " at (" + getCoord() +")";
     }
 }
