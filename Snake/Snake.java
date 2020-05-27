@@ -28,7 +28,7 @@ class Snake implements Iterable<Square> {
      */
     Snake (int startX, int startY) {
         snakeList = new ArrayList<>();
-        snakeList.add(new Square(Square.Entity.Snake, startX, startY));
+        snakeList.add(new Square(Entity.Snake, startX, startY));
     }
 
     /**
@@ -97,7 +97,7 @@ class Snake implements Iterable<Square> {
         int oldY = currentHead.getY();
 
         // Create a new head, relative to the old one, in the appropriate direction.
-        Square head = new Square(Square.Entity.Snake, oldX + xOffset, oldY + yOffset);
+        Square head = new Square(Entity.Snake, oldX + xOffset, oldY + yOffset);
 
         if (contains(head)) return false; // If snake collided with itself.
         snakeList.add(0, head); // Add the new head if no collision.

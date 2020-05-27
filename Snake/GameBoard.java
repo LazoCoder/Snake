@@ -45,7 +45,7 @@ class GameBoard  {
         Random rX = new Random();
         Random rY = new Random();
         food = new Square(
-                Square.Entity.Food,
+                Entity.Food,
                 rX.nextInt(Properties.BOARD_COLUMNS),
                 rY.nextInt(Properties.BOARD_ROWS));
 

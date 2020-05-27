@@ -69,13 +69,4 @@ class Square {
     public String toString () {
         return entity + " at (" + x + ", " + y + ")";
     }
-
-    /**
-     * Represents what is on a particular square.
-     */
-    enum Entity {
-        Empty,
-        Snake,
-        Food
-    }
 }
