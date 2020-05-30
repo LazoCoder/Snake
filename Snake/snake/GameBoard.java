@@ -1,3 +1,4 @@
+package snake;
 import java.awt.*;
 import java.util.Random;
 
@@ -14,6 +15,7 @@ class GameBoard  {
     private Square food;
     private Snake snake;
     private int score = 0;
+    private Properties properties;
 
     /**
      * Keep track of the last move so that the Snake cannot do 180 degree turns,
@@ -27,8 +29,10 @@ class GameBoard  {
      */
     GameBoard () {
         this.snake = new Snake();
+        properties=Properties.Instance();
         newFood();
         update();
+        
     }
 
     /**
@@ -46,8 +50,8 @@ class GameBoard  {
         Random rY = new Random();
         food = new Square(
                 Entity.Food,
-                rX.nextInt(Properties.BOARD_COLUMNS),
-                rY.nextInt(Properties.BOARD_ROWS));
+                rX.nextInt(properties.getBoardColumns()),
+                rY.nextInt(properties.getBoardRows()));
 
         // If food is spawned inside the snake, try spawning it elsewhere.
         if (snake.contains(food)) {
@@ -149,9 +153,9 @@ class GameBoard  {
         Square sq = snake.getHead();
 
         boolean tooFarLeft = sq.getX() < 0;
-        boolean tooFarRight = sq.getX() >= Properties.BOARD_COLUMNS;
+        boolean tooFarRight = sq.getX() >= properties.getBoardColumns();
         boolean tooFarUp = sq.getY() < 0;
-        boolean tooFarDown = sq.getY() >= Properties.BOARD_ROWS;
+        boolean tooFarDown = sq.getY() >= properties.getBoardRows();
 
         boolean outOfBounds = tooFarLeft || tooFarRight || tooFarUp || tooFarDown;
 
@@ -200,28 +204,28 @@ class GameBoard  {
 
     private void paintSnake (Graphics2D g) {
         int x, y;
-        int corner = Properties.SQUARE_SIZE / 3;
+        int corner = properties.getSquareSize() / 3;
 
         for (Square sq : snake) {
 
-            x = sq.getX() * Properties.SQUARE_SIZE;
-            y = sq.getY() * Properties.SQUARE_SIZE;
+            x = sq.getX() * properties.getSquareSize();
+            y = sq.getY() * properties.getSquareSize();
 
-            g.setColor(Properties.snakeColor);
-            g.fillRoundRect(x + 1, y + 1, Properties.SQUARE_SIZE - 2,
-                    Properties.SQUARE_SIZE - 2, corner, corner);
+            g.setColor(properties.getSnakeColor());
+            g.fillRoundRect(x + 1, y + 1, properties.getSquareSize() - 2,
+                    properties.getSquareSize() - 2, corner, corner);
 
         }
     }
 
     private void paintFood (Graphics2D g) {
-        int x = food.getX() * Properties.SQUARE_SIZE;
-        int y = food.getY() * Properties.SQUARE_SIZE;
-        int corner = Properties.SQUARE_SIZE / 3;
+        int x = food.getX() * properties.getSquareSize();
+        int y = food.getY() * properties.getSquareSize();
+        int corner = properties.getSquareSize() / 3;
 
-        g.setColor(Properties.foodColor);
-        g.fillRoundRect(x + 1, y + 1, Properties.SQUARE_SIZE - 2,
-                Properties.SQUARE_SIZE - 2, corner, corner);
+        g.setColor(properties.getFoodColor());
+        g.fillRoundRect(x + 1, y + 1, properties.getSquareSize() - 2,
+                properties.getSquareSize() - 2, corner, corner);
     }
 
     @Override
@@ -229,8 +233,8 @@ class GameBoard  {
 
         StringBuilder sb = new StringBuilder();
 
-        for (int y = 0; y < Properties.BOARD_ROWS; y++) {
-            for (int x = 0; x < Properties.BOARD_COLUMNS; x++) {
+        for (int y = 0; y < properties.getBoardRows(); y++) {
+            for (int x = 0; x < properties.getBoardColumns(); x++) {
                 Square sq = new Square(x, y);
 
                 if (snake.contains(sq)) {
