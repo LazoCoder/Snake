@@ -32,7 +32,7 @@ public class GameBoard  {
     	gameboard = this;
     	num_invoke = 0;
     	
-        this.snake = new Snake();
+        this.snake = Snake.get_snake();
         newFood();
         update();
     }
