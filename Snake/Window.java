@@ -20,7 +20,7 @@ public class Window extends JFrame {
     private Engine createEngine () {
 
         Container cp = getContentPane();
-        GameBoard gameBoard = new GameBoard();
+        GameBoard gameBoard = GameBoard.get_board();
         Engine engine = new Engine(gameBoard);
 
         int canvasWidth = Properties.SQUARE_SIZE * Properties.BOARD_COLUMNS;
