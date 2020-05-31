@@ -10,11 +10,11 @@ import java.util.Random;
  * immediately change its direction to left because it would run into itself.
  */
 public class GameBoard  {
-	
-	private static GameBoard gameboard;
-	private static int num_invoke;
-	
-    private Square food;
+   
+   private static GameBoard gameboard;
+   private static int num_invoke;
+   
+    private Food food;
     private Snake snake;
     private int score = 0;
 
@@ -29,22 +29,22 @@ public class GameBoard  {
      * Constructs the board.
      */
     GameBoard () {
-    	gameboard = this;
-    	num_invoke = 0;
-    	
+       gameboard = this;
+       num_invoke = 0;
+       
         this.snake = Snake.get_snake();
-        newFood();
+        this.food = new Food();
         update();
     }
     
     public static GameBoard get_board()
     {
-    	if(gameboard == null)
-    	{
-    		gameboard = new GameBoard();
-    	}
-    	num_invoke++;
-    	return gameboard;
+       if(gameboard == null)
+       {
+          gameboard = new GameBoard();
+       }
+       num_invoke++;
+       return gameboard;
     }
 
     /**
@@ -57,6 +57,8 @@ public class GameBoard  {
     /**
      * Creates food at a random location. Only one piece of food can be spawned at a time.
      */
+    
+    /**
     private void newFood () {
         Random rX = new Random();
         Random rY = new Random();
@@ -70,7 +72,8 @@ public class GameBoard  {
             newFood();
         }
     }
-
+    */
+    
     /**
      * Sets the direction of the Snake to go left.
      */
@@ -179,7 +182,7 @@ public class GameBoard  {
     private void checkIfAteFood() {
         if (isSnakeOnFood()) {
             growSnake();
-            newFood();
+            food = new Food();
         }
     }
 
@@ -197,7 +200,7 @@ public class GameBoard  {
     }
 
     private boolean isSnakeOnFood () {
-        return snake.getHead().equals(food);
+        return snake.getHead().equals(food.get_food());
     }
 
     private void growSnake () {
@@ -231,8 +234,8 @@ public class GameBoard  {
     }
 
     private void paintFood (Graphics2D g) {
-        int x = food.getX() * Properties.SQUARE_SIZE;
-        int y = food.getY() * Properties.SQUARE_SIZE;
+        int x = food.get_X() * Properties.SQUARE_SIZE;
+        int y = food.get_Y() * Properties.SQUARE_SIZE;
         int corner = Properties.SQUARE_SIZE / 3;
 
         g.setColor(Properties.foodColor);
@@ -251,7 +254,7 @@ public class GameBoard  {
 
                 if (snake.contains(sq)) {
                     sb.append("S");
-                } else if (food.equals(sq)) {
+                } else if (food.get_food().equals(sq)) {
                     sb.append("F");
                 } else {
                     sb.append("-");
