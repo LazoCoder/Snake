@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Food {
    
-   private Snake snake = Snake.get_snake();
+   private Snake snake;
    
    private Square food;
    private int x;

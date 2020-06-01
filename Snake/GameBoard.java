@@ -11,8 +11,9 @@ import java.util.Random;
  */
 public class GameBoard  {
    
-    private static GameBoard gameBoard;
-    private static int num_invoke;
+   private static GameBoard gameboard;
+   private static int num_invoke;
+   
     private Food food;
     private Snake snake;
     private int score = 0;
@@ -22,29 +23,28 @@ public class GameBoard  {
      * only 90 degree turns.
      */
     private Direction movement = Direction.DOWN;
-    private SnakeMoveBehavior snakeMoveBehavior;
     private Direction lastMove = movement;
 
     /**
      * Constructs the board.
      */
     GameBoard () {
-       gameBoard = this;
+       gameboard = this;
        num_invoke = 0;
-       this.snake = Snake.get_snake();
-       this.food = new Food();
-       this.snakeMoveBehavior = new DownBehavior();
-       update();
+       
+        this.snake = Snake.get_snake();
+        this.food = new Food();
+        update();
     }
     
     public static GameBoard get_board()
     {
-       if(gameBoard == null)
+       if(gameboard == null)
        {
-          gameBoard = new GameBoard();
+          gameboard = new GameBoard();
        }
        num_invoke++;
-       return gameBoard;
+       return gameboard;
     }
 
     /**
@@ -53,27 +53,33 @@ public class GameBoard  {
     void update () {
         moveSnake();
     }
+
+    /**
+     * Creates food at a random location. Only one piece of food can be spawned at a time.
+     */
     
-    void set_food(Food food) {
-    	this.food = food;
+    /**
+    private void newFood () {
+        Random rX = new Random();
+        Random rY = new Random();
+        food = new Square(
+                Square.Entity.Food,
+                rX.nextInt(Properties.BOARD_COLUMNS),
+                rY.nextInt(Properties.BOARD_ROWS));
+
+        // If food is spawned inside the snake, try spawning it elsewhere.
+        if (snake.contains(food)) {
+            newFood();
+        }
     }
+    */
     
-    Food get_food() {
-    	return food;
-    }
-    
-    void set_movement(Direction direction) {
-    	movement = direction;
-    }
-    
-    void set_behavior(SnakeMoveBehavior snakeMoveBehavior) {
-    	this.snakeMoveBehavior = snakeMoveBehavior;
-    }
-    
+    /**
+     * Sets the direction of the Snake to go left.
+     */
     void directionLeft () {
         if (lastMove != Direction.RIGHT || getSnakeSize() == 1) {
-            set_movement(Direction.LEFT);
-            set_behavior(new LeftBehavior());
+            movement = Direction.LEFT;
         }
     }
 
@@ -82,8 +88,7 @@ public class GameBoard  {
      */
     void directionRight () {
         if (lastMove != Direction.LEFT || getSnakeSize() == 1) {
-        	set_movement(Direction.RIGHT);
-            set_behavior(new RightBehavior());
+            movement = Direction.RIGHT;
         }
     }
 
@@ -92,8 +97,7 @@ public class GameBoard  {
      */
     void directionUp () {
         if (lastMove != Direction.DOWN || getSnakeSize() == 1) {
-        	set_movement(Direction.UP);
-            set_behavior(new UpBehavior());
+            movement = Direction.UP;
         }
     }
 
@@ -102,8 +106,7 @@ public class GameBoard  {
      */
     void directionDown () {
         if (lastMove != Direction.UP || getSnakeSize() == 1) {
-        	set_movement(Direction.DOWN);
-            set_behavior(new DownBehavior());
+            movement = Direction.DOWN;
         }
     }
 
@@ -111,20 +114,98 @@ public class GameBoard  {
      * Moves the Snake one square, according to its direction.
      */
     private void moveSnake () {
-        snakeMoveBehavior.action();
+
+        if (movement == Direction.LEFT) {
+            moveSnakeLeft();
+        } else if (movement == Direction.RIGHT) {
+            moveSnakeRight();
+        } else if (movement == Direction.UP) {
+            moveSnakeUp();
+        } else if (movement == Direction.DOWN) {
+            moveSnakeDown();
+        }
+
         lastMove = movement;
+    }
+
+    private void moveSnakeLeft () {
+        if (!snake.moveLeft()) { // Check to see if the Snake has run into itself.
+            exit();
+        }
+        checkBounds();
+        checkIfAteFood();
+        movement = Direction.LEFT;
+    }
+
+    private void moveSnakeRight () {
+        if (!snake.moveRight()) { // Check to see if the Snake has run into itself.
+            exit();
+        }
+        checkBounds();
+        checkIfAteFood();
+        movement = Direction.RIGHT;
+    }
+
+    private void moveSnakeUp () {
+        if (!snake.moveUp()) { // Check to see if the Snake has run into itself.
+            exit();
+        }
+        checkBounds();
+        checkIfAteFood();
+        movement = Direction.UP;
+    }
+
+    private void moveSnakeDown () {
+        if (!snake.moveDown()) { // Check to see if the Snake has run into itself.
+            exit();
+        }
+        checkBounds();
+        checkIfAteFood();
+        movement = Direction.DOWN;
+    }
+
+    private void checkBounds () {
+        Square sq = snake.getHead();
+
+        boolean tooFarLeft = sq.getX() < 0;
+        boolean tooFarRight = sq.getX() >= Properties.BOARD_COLUMNS;
+        boolean tooFarUp = sq.getY() < 0;
+        boolean tooFarDown = sq.getY() >= Properties.BOARD_ROWS;
+
+        boolean outOfBounds = tooFarLeft || tooFarRight || tooFarUp || tooFarDown;
+
+        if (outOfBounds) {
+            exit();
+        }
+    }
+
+    private void checkIfAteFood() {
+        if (isSnakeOnFood()) {
+            growSnake();
+            food = new Food();
+        }
+    }
+
+    private int getSnakeSize () {
+        return snake.getSize();
+    }
+
+    private void exit () {
+        System.out.println("Final Score: " + getScore());
+        System.exit(0);
     }
 
     int getScore () {
         return score;
     }
-    
-    void addScore(int score) {
-    	this.score += score;
+
+    private boolean isSnakeOnFood () {
+        return snake.getHead().equals(food.get_food());
     }
-    
-    private int getSnakeSize () {
-        return snake.getSize();
+
+    private void growSnake () {
+        snake.grow();
+        score += 10;
     }
 
     void paint (Graphics graphics) {
