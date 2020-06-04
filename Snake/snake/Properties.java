@@ -11,18 +11,16 @@ public class Properties {
 	private BoardSize boardSize;
 	private BoardColor boardColor;
 	// Snake start position
-	private int start_x;
-	private int start_y;
+	private Coordinate startXY;
 	private Theme theme;
 	
-	// singleton pattern
+	// ---------singleton pattern------------
 	private static Properties properties;
 
 	private Properties() {
 		boardSize = new BoardSize_1();
 		boardColor = new BoardColorDefault();
-		start_x = boardSize.getColumns() / 2;
-		start_y = boardSize.getRows() / 2;
+		startXY = new Coordinate(boardSize.getColumns()/2,boardSize.getRows()/2);
 		theme = Theme.Dark;
 	}
 
@@ -31,7 +29,7 @@ public class Properties {
 			properties = new Properties();
 		return properties;
 	}
-
+	//----------------------------------------
 	public void changeBackGroundColor() {
 		Color currentBackgroundColor = boardColor.getBackgroundColor();
 		ColorChanger.changeColor(currentBackgroundColor);
@@ -63,11 +61,11 @@ public class Properties {
 	}
 
 	public int getStartX() {
-		return start_x;
+		return startXY.getX();
 	}
 
 	public int getStartY() {
-		return start_y;
+		return startXY.getY();
 	}
 	public Color getBackgroundColor() {
 		return boardColor.getBackgroundColor();
