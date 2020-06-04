@@ -1,5 +1,4 @@
-package snake;
-public enum Direction {
+enum Direction {
     LEFT,
     RIGHT,
     UP,

@@ -1,4 +1,3 @@
-package snake;
 /**
  * Represents a square on the board. Each Square has an Entity. An Entity
  * is what is on the Square: either there is food, a piece of the snake,
@@ -64,7 +63,7 @@ class Square {
         }
 
         Square sq = (Square) obj;
-        return sq.getCoord().equals(this.getCoord());
+        return sq.getCoord().equals(getCoord());
     }
 
     @Override

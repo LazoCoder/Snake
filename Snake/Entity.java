@@ -1,4 +1,3 @@
-package snake;
 /**
 * Represents what is on a particular cell.
 */

@@ -1,4 +1,3 @@
-package snake;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -19,7 +18,7 @@ class Snake implements Iterable<Square> {
      * Construct the snake and places it in the center of the screen.
      */
     Snake () {
-        this(Properties.Instance().getStartX(), Properties.Instance().getStartY());
+        this(Properties.START_X, Properties.START_Y);
     }
 
     /**
