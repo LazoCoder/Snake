@@ -17,5 +17,5 @@ public abstract class BoardColor {
 	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
+	
 }
-
