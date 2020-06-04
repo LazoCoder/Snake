@@ -1,29 +1,29 @@
+package snake;
 import java.util.Random;
 
 public class Food {
    
-   private Snake snake = Snake.get_snake();
-   
-   private Square food;
-   private int x;
-   private int y;
+   private final Snake snake = Snake.get_snake();
+   private final Properties properties = Properties.Instance();
+   private final Square food;
+   private final int x;
+   private final int y;
 
-   Food(){
+   Food() {
       this.food = set_food();
-        this.x = food.getX();
-        this.y = food.getY();
+      this.x = food.getX();
+      this.y = food.getY();
    }
-   
+
    private Square set_food() {
-      Random rX = new Random();
-        Random rY = new Random();
-        Square square = new Square(Square.Entity.Food, rX.nextInt(Properties.BOARD_COLUMNS), rY.nextInt(Properties.BOARD_ROWS));
-        
-        if (food != null && snake.contains(food)) {
-            set_food();
-        }
-        
-        return square;
+      final Random rX = new Random();
+      final Random rY = new Random();
+      final Square square = new Square(Entity.Food, rX.nextInt(properties.getBoardColumns()),
+            rY.nextInt(properties.getBoardRows()));
+      if (food != null && snake.contains(food)) {
+         set_food();
+      }  
+      return square;
    }
    
    public Square get_food() {
