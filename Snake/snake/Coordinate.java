@@ -1,4 +1,3 @@
-package snake;
 
 public class Coordinate {
 	private int x;

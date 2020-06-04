@@ -15,8 +15,8 @@ public class Window extends JFrame {
 	private Properties properties;
 
 	private Window() {
-		engine = createEngine();
 		properties = Properties.Instance();
+		engine = createEngine();
 		setWindowProperties();
 	}
 
