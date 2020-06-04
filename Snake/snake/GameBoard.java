@@ -11,11 +11,11 @@ import java.util.Random;
  * immediately change its direction to left because it would run into itself.
  */
 class GameBoard  {
-
+	private static GameBoard gameBoard;
     private Square food;
     private Snake snake;
     private int score = 0;
-    private Properties properties;
+    private Properties properties = Properties.Instance();
 
     /**
      * Keep track of the last move so that the Snake cannot do 180 degree turns,
@@ -28,11 +28,21 @@ class GameBoard  {
      * Constructs the board.
      */
     GameBoard () {
+    	gameBoard = this;
         this.snake = new Snake();
         properties=Properties.Instance();
         newFood();
         update();
         
+    }
+    
+    public static GameBoard get_board()
+    {
+    	if(gameBoard == null)
+    	{
+    		gameBoard = new GameBoard();
+    	}
+    	return gameBoard;
     }
 
     /**

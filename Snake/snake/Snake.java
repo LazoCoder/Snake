@@ -10,7 +10,7 @@ import java.util.Iterator;
  * it is going, then deleting the tail.
  */
 class Snake implements Iterable<Square> {
-
+	private static Snake snake;
     private ArrayList<Square> snakeList;
     private int size = 1;
     private Square tail;
@@ -20,6 +20,7 @@ class Snake implements Iterable<Square> {
      */
     Snake () {
         this(Properties.Instance().getStartX(), Properties.Instance().getStartY());
+        snake = this;
     }
 
     /**
@@ -30,6 +31,15 @@ class Snake implements Iterable<Square> {
     Snake (int startX, int startY) {
         snakeList = new ArrayList<>();
         snakeList.add(new Square(Entity.Snake, startX, startY));
+    }
+    
+    public static Snake get_snake()
+    {
+    	if(snake == null)
+    	{
+    		snake = new Snake();
+    	}
+    	return snake;
     }
 
     /**
