@@ -13,15 +13,16 @@ public class Properties {
 	// Snake start position
 	private Coordinate startXY;
 	private Theme theme;
-	
+	private ColorChanger colorChanger;
 	// ---------singleton pattern------------
 	private static Properties properties;
 
 	private Properties() {
-		boardSize = new BoardSize_1();
+		boardSize = new BoardSizeDefault();
 		boardColor = new BoardColorDefault();
 		startXY = new Coordinate(boardSize.getColumns()/2,boardSize.getRows()/2);
 		theme = Theme.Dark;
+		colorChanger=new ColorChangerRainbow();
 	}
 
 	public static Properties Instance() {
@@ -32,7 +33,7 @@ public class Properties {
 	//----------------------------------------
 	public void changeBackGroundColor() {
 		Color currentBackgroundColor = boardColor.getBackgroundColor();
-		ColorChanger.changeColor(currentBackgroundColor);
+		colorChanger.changeColor(currentBackgroundColor);
 		boardColor.setBackgroundColor(currentBackgroundColor);
 	}
 
@@ -74,24 +75,25 @@ public class Properties {
 		boardColor.setBackgroundColor(ColorData.green);
 		theme = Theme.Rainbow;
 	}
-
+	
+	//Factory Method Pattern
 	public void Dark() {
-		boardColor = new BoardColorDark();
+		boardColor = BoardColorFactory.getBoardColor(Theme.Dark);
 		theme = Theme.Dark;
 	}
 
 	public void Sky() {
-		boardColor = new BoardColorSky();
+		boardColor = BoardColorFactory.getBoardColor(Theme.Sky);
 		theme = Theme.Sky;
 	}
 
 	public void Mud() {
-		boardColor = new BoardColorMud();
+		boardColor = BoardColorFactory.getBoardColor(Theme.Mud);
 		theme = Theme.Mud;
 	}
 
 	public void Sand() {
-		boardColor = new BoardColorSand();
+		boardColor = BoardColorFactory.getBoardColor(Theme.Sand);
 		theme = Theme.Sand;
 	}
 
