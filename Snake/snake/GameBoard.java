@@ -9,19 +9,22 @@ import java.awt.*;
  * cannot move 180 degrees. Example: if the Snake is moving right, it cannot
  * immediately change its direction to left because it would run into itself.
  */
-public class GameBoard  {
-   
-    private static GameBoard gameBoard;
+
+class GameBoard  {
+	private static GameBoard gameBoard;
     private Food food;
     private Snake snake;
     private int score = 0;
-    private Properties properties = Properties.Instance();;
+    private Properties properties = Properties.Instance();
+
 
     /**
      * Keep track of the last move so that the Snake cannot do 180 degree turns,
      * only 90 degree turns.
      */
-    private Direction movement = Direction.DOWN;
+
+    private Direction movement;
+
     private SnakeMoveBehavior snakeMoveBehavior;
     private Direction lastMove = movement;
 
@@ -29,21 +32,22 @@ public class GameBoard  {
      * Constructs the board.
      */
     GameBoard () {
-       gameBoard = this;
-       this.snake = Snake.get_snake();
-       this.food = new Food();
-       this.snakeMoveBehavior = new DownBehavior();
-       properties = Properties.Instance();
-       update();
+    	gameBoard = this;
+        this.snake = Snake.get_snake();
+        this.food = new Food();
+        this.snakeMoveBehavior = new DownBehavior();
+        properties=Properties.Instance();
+        update();
     }
     
     public static GameBoard get_board()
     {
-       if(gameBoard == null)
-       {
-          gameBoard = new GameBoard();
-       }
-       return gameBoard;
+    	if(gameBoard == null)
+    	{
+    		gameBoard = new GameBoard();
+    	}
+    	return gameBoard;
+
     }
 
     /**
@@ -81,7 +85,8 @@ public class GameBoard  {
      */
     void directionRight () {
         if (lastMove != Direction.LEFT || getSnakeSize() == 1) {
-        	set_movement(Direction.RIGHT);
+
+            set_movement(Direction.RIGHT);
             set_behavior(new RightBehavior());
         }
     }
@@ -110,20 +115,21 @@ public class GameBoard  {
      * Moves the Snake one square, according to its direction.
      */
     private void moveSnake () {
-        snakeMoveBehavior.action();
+
+    	snakeMoveBehavior.action();
         lastMove = movement;
     }
 
-    int getScore () {
-        return score;
-    }
-    
-    void addScore(int score) {
-    	this.score += score;
-    }
-    
     private int getSnakeSize () {
         return snake.getSize();
+    }
+
+    int getScore() {
+        return score;
+    }
+    void addScore(int score) {
+    	this.score += score;
+
     }
 
     void paint (Graphics graphics) {

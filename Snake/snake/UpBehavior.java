@@ -1,4 +1,5 @@
 package snake;
+
 public class UpBehavior extends CheckTemplate implements SnakeMoveBehavior{
 
 	private Snake snake = Snake.get_snake();

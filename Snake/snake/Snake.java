@@ -11,7 +11,6 @@ import java.util.Iterator;
  */
 class Snake implements Iterable<Square> {
 	private static Snake snake;
-	
     private ArrayList<Square> snakeList;
     private int size = 1;
     private Square tail;
@@ -35,7 +34,6 @@ class Snake implements Iterable<Square> {
         snakeList = new ArrayList<>();
         snakeList.add(new Square(Entity.Snake, startX, startY));
     }
-    
     
     public static Snake get_snake()
     {

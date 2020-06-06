@@ -1,9 +1,11 @@
 package snake;
+
 public abstract class CheckTemplate {
 	private Snake snake = Snake.get_snake();
 	private GameBoard gameBoard = GameBoard.get_board();
-	private Food food;
-	
+    private Food food;
+    private Properties properties = Properties.Instance();
+
 	public final void check() {
 		food = gameBoard.get_food();	
 		if(!checkMovement()) {
@@ -12,7 +14,7 @@ public abstract class CheckTemplate {
 		checkBounds();
 		checkIfAteFood();
 	}
-	private Properties properties = Properties.Instance();
+
 	public abstract boolean checkMovement();
 	
 	private void checkBounds () {
