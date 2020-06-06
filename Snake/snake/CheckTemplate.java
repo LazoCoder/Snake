@@ -1,4 +1,4 @@
-
+package snake;
 public abstract class CheckTemplate {
 	private Snake snake = Snake.get_snake();
 	private GameBoard gameBoard = GameBoard.get_board();
@@ -12,16 +12,16 @@ public abstract class CheckTemplate {
 		checkBounds();
 		checkIfAteFood();
 	}
-	
+	private Properties properties = Properties.Instance();
 	public abstract boolean checkMovement();
 	
 	private void checkBounds () {
         Square sq = snake.getHead();
 
         boolean tooFarLeft = sq.getX() < 0;
-        boolean tooFarRight = sq.getX() >= Properties.BOARD_COLUMNS;
+        boolean tooFarRight = sq.getX() >= properties.getBoardColumns();
         boolean tooFarUp = sq.getY() < 0;
-        boolean tooFarDown = sq.getY() >= Properties.BOARD_ROWS;
+        boolean tooFarDown = sq.getY() >= properties.getBoardRows();
 
         boolean outOfBounds = tooFarLeft || tooFarRight || tooFarUp || tooFarDown;
 

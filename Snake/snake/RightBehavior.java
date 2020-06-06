@@ -1,4 +1,4 @@
-
+package snake;
 public class RightBehavior extends CheckTemplate implements SnakeMoveBehavior{
 
 	private Snake snake = Snake.get_snake();
