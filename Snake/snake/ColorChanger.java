@@ -4,7 +4,7 @@ import java.awt.Color;
 //replace method with method object
 public abstract class ColorChanger {
 	protected void changeRGB(Color fromRGB, Color toRGB) {
-		int newRed = changeFromTo(fromRGB.getRed(), fromRGB.getRed());
+		int newRed = changeFromTo(fromRGB.getRed(),toRGB.getRed());
 		int newGreen = changeFromTo(fromRGB.getGreen(), toRGB.getGreen());
 		int newBlue = changeFromTo(fromRGB.getBlue(), toRGB.getBlue());
 		fromRGB = new Color(newRed, newGreen, newBlue);
